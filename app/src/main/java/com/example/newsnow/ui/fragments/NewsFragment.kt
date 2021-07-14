@@ -39,17 +39,17 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         viewModel = (activity as MainActivity).viewModel
 
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.breakingNews.observe(viewLifecycleOwner, Observer {  response ->
 
-            when (response) {
+            when(response){
 
-                is Resource.Loading -> {
+                is Resource.Loading ->{
                     showProgressBar()
                 }
 
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let { newsResponse ->
+                    response.data?.let {  newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
@@ -58,7 +58,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
                 is Resource.Error -> {
                     hideProgressBar()
-                    response.message?.let { message ->
+                    response.message?.let {message ->
                         Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -69,6 +69,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         })
 
     }
+
 
     private fun hideProgressBar() {
         news_progress_bar.visibility = View.INVISIBLE
