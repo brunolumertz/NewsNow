@@ -7,22 +7,27 @@
     tools:context=".ui.fragments.NewsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/news_rv"
+        android:id="@+id/rvBreakingNews"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/article_item" />
+        android:clipToPadding="false"
+        android:paddingBottom="50dp" />
 
     <ProgressBar
-        android:id="@+id/news_progress_bar"
+        android:id="@+id/paginationProgressBar"
+        style="?attr/progressBarStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

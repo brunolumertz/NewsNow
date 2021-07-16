@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
@@ -9,12 +10,11 @@
         android:id="@+id/newsFragment"
         android:name="com.example.newsnow.ui.fragments.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news">
+        tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_newsFragment_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/articleDetailsFragment"
         android:name="com.example.newsnow.ui.fragments.ArticleDetailsFragment"
@@ -24,5 +24,4 @@
             android:name="article"
             app:argType="com.example.newsnow.model.Article" />
     </fragment>
-
 </navigation>
