@@ -30,7 +30,7 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
         //botão para salvar o artigo
         fabFavorite.setOnClickListener {
             viewModel.saveArticle(article)
-            Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, "Article saved!", Snackbar.LENGTH_SHORT).show()
         }
     }
 }

@@ -16,6 +16,7 @@ class NewsViewModel(
     private val newsRepository: NewsRepository
 ) : AndroidViewModel(app) {
 
+    //Live data obj
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
 
@@ -29,6 +30,7 @@ class NewsViewModel(
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
+    //sucesso ou erro das noticias
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->

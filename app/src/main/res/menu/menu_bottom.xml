@@ -12,7 +12,7 @@
         android:title="Search" />
 
     <item
-        android:id="@+id/articleSave"
+        android:id="@+id/savedNewsFragment"
         android:icon="@drawable/ic_save"
         android:title="Save" />
 

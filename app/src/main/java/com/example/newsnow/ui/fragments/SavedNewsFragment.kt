@@ -23,17 +23,17 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        setupRecyclerView()
+        configRecyclerView()
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
 
-//            findNavController().navigate(
-//                R.id.ac,
-////                bundle
-//            )
+            findNavController().navigate(
+                R.id.action_savedNewsFragment_to_articleDetailsFragment,
+                bundle
+            )
         }
 
         //as parada pro swipe
@@ -71,7 +71,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         })
     }
 
-    private fun setupRecyclerView() {
+    private fun configRecyclerView() {
         newsAdapter = NewsAdapter()
         saved_rv.apply {
             adapter = newsAdapter

@@ -10,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsnow.Constants.Companion.QUERY_PAGE
+import com.example.newsnow.Constants.Companion.isLastPage
+import com.example.newsnow.Constants.Companion.isLoading
+import com.example.newsnow.Constants.Companion.isScrolling
 import com.example.newsnow.MainActivity
 import com.example.newsnow.R
 import com.example.newsnow.Resource
@@ -25,13 +28,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        setupRecyclerView()
+        configRecyclerView()
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
-            //transição de fragment
             findNavController().navigate(
                 R.id.action_newsFragment_to_articleDetailsFragment,
                 bundle
@@ -70,25 +72,17 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         })
     }
 
-    //oculta a barra de progresso
     private fun hideProgressBar() {
         paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
     }
 
-    //mostra a barra de progresso
     private fun showProgressBar() {
         paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
     }
 
-    // detecta quando rolamos completamente para baixo
-    // carrega a próxima pagina
-
-    var isLoading = false
-    var isLastPage = false
-    var isScrolling = false
-
+    //basicamente pra carregar as proximas paginas
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
@@ -100,7 +94,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
-            // cálculos com o gerenciador de layout
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
@@ -112,15 +105,15 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
-            // verifica se deve paginar
+            // faz ou nao a paginacao
             if (shouldPaginate) {
-                viewModel.getBreakingNews("us")
+                viewModel.getBreakingNews("br")
                 isScrolling = false
             }
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun configRecyclerView() {
         newsAdapter = NewsAdapter()
         rvBreakingNews.apply {
             adapter = newsAdapter
