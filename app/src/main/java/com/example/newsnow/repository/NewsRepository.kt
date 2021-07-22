@@ -17,4 +17,7 @@ class NewsRepository(val db: ArticleDatabase) {
 
     //Deleta do BD
     suspend fun deleteArticle(article: Article) = db.getArticleDao().deleteArticle(article)
+
+    suspend fun searchNews(searchQuery: String, pageNumber: Int) =
+        RetrofitInstance.api.searchForNews(searchQuery, pageNumber)
 }
